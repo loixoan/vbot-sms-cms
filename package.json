@@ -1,0 +1,36 @@
+{
+  "name": "vbot-sms-cms",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force"
+  },
+  "dependencies": {
+    "axios": "^1.7.5",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "paginationjs": "^2.6.0",
+    "vue": "^3.4.38",
+    "vue-lodash": "^2.1.2",
+    "vue-router": "^4.3.3",
+    "vue-toast-notification": "^3.1.2"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/bootstrap": "^5.2.10",
+    "@types/jquery": "^3.5.30",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^20.14.5",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/tsconfig": "^0.5.1",
+    "npm-run-all2": "^6.2.0",
+    "typescript": "~5.4.0",
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.21"
+  }
+}
