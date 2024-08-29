@@ -3,7 +3,7 @@
 import {TypeBrandname} from "@/enums/TypeBrandname";
 import {Status} from "@/enums/Status";
 import {closeModal} from "@/helpers/functions";
-import {create} from "@/services/brandnameService";
+import {createBrandname} from "@/services/brandnameService";
 import {IdModal} from "@/enums/IdModal";
 import {useToast} from "vue-toast-notification";
 import {BrandnameValidator} from "@/validator/BrandnameValidator";
@@ -14,13 +14,15 @@ const props = defineProps<{
 }>()
 const $toast = useToast();
 const fetchData = inject<() => Promise<void>>("fetchData");
-
+const getCountAllData = inject<() => Promise<void>>("getCountAllData");
 const handleCreate = async (brandname: IBrandname) => {
   if (BrandnameValidator(brandname)) {
-    await create(brandname).then(async (res) => {
+    await createBrandname(brandname).then(async (res) => {
       if (res.data.status === 1) {
         await fetchData?.()
+        await getCountAllData?.()
         closeModal(IdModal.create)
+        $toast.success(res.data.msg)
       }
     }).catch(error => {
       const errors = error?.response?.data?.errors;

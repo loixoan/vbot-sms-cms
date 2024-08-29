@@ -4,21 +4,25 @@ import {closeModal} from "@/helpers/functions";
 import {TypeBrandname} from "@/enums/TypeBrandname";
 import {Status} from "@/enums/Status";
 import {BrandnameValidator} from "@/validator/BrandnameValidator";
-import {update} from "@/services/brandnameService";
+import {countAllBrandname, updateBrandname} from "@/services/brandnameService";
 import {inject} from "vue";
 import {useToast} from "vue-toast-notification";
+import { count } from "console";
 
 const props = defineProps<{
   brandname: IBrandname
 }>();
 const $toast = useToast();
 const fetchData = inject<() => Promise<void>>("fetchData");
+const getCountAllData = inject<() => Promise<void>>("getCountAllData");
 const handleUpdate = async (brandname: IBrandname) => {
   if (BrandnameValidator(brandname)) {
-    await update(brandname).then(async (res) => {
+    await updateBrandname(brandname).then(async (res) => {
       if (res.data.status === 1) {
         await fetchData?.()
+        await getCountAllData?.()
         closeModal(IdModal.update)
+        $toast.success(res.data.msg)
       }
     }).catch(error => {
       const errors = error?.response?.data?.errors;

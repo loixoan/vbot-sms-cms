@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import {computed, inject, onMounted, reactive, ref, watch, watchEffect} from "vue";
-import {formatDate, formatDateToInput} from "@/helpers/functions";
+import {reactive, ref, watch} from "vue";
+import {formatDate, formatDateToInput, paramUrl} from "@/helpers/functions";
 import ModalUpdate from "@/components/brandname/ModalUpdate.vue";
 import {IdModal} from "@/enums/IdModal";
 import {Status} from '@/enums/Status';
 import router from "@/router";
+import ModalDelete from "@/components/brandname/ModalDelete.vue";
 
 const props = defineProps<{
   brandnames: IBrandname[],
   page: number,
   size: number,
-  countAllBrandname: number
+  countAll: number
 }>()
 const dataEdit = reactive<IBrandname>({
   code: "", createAt: "", expirationAt: "", id: 0, name: "", projectCode: "", status: 0, type: ""
 });
+const idDelete = ref<number>(0);
 const handleClickEdit = (brandname: IBrandname) => {
   dataEdit.code = brandname.code;
   dataEdit.expirationAt = formatDateToInput(brandname.expirationAt);
@@ -24,29 +26,28 @@ const handleClickEdit = (brandname: IBrandname) => {
   dataEdit.status = brandname.status;
   dataEdit.type = brandname.type;
 }
-const emit = defineEmits(['update:page'])
-const initializePagination = (page: number, size: number, allBrandname: number) => {
+const initializePagination = () => {
   if ($("ul").hasClass("data-pagination")) {
     $('.data-pagination').pagination({
-      dataSource: [...Array(allBrandname).keys()],
-      pageNumber: page,
-      pageSize: size,
+      dataSource: [...Array(props.countAll).keys()],
+      pageNumber: props.page + 1,
+      pageSize: props.size,
       callback: (data: any, pageObj: any) => {
-        if (pageObj.pageNumber !== page) {
+        if (pageObj.pageNumber !== props.page + 1) {
           router.push({
             query: {
+              ...paramUrl(),
               page: pageObj.pageNumber - 1,
-              size: size
+              size: props.size
             }
           });
         }
-
       }
     });
   }
 };
-watch([() => props.page, () => props.size, () => props.countAllBrandname], () => {
-  initializePagination(props.page + 1, props.size, props.countAllBrandname);
+watch([() => props.page, () => props.size, () => props.countAll], () => {
+    initializePagination();
 });
 
 
@@ -77,12 +78,13 @@ watch([() => props.page, () => props.size, () => props.countAllBrandname], () =>
         <td><span :class="Status[brandname.status].color">{{ Status[brandname.status].message }}</span></td>
         <td>{{ formatDate(brandname.expirationAt) }}</td>
         <td>{{ formatDate(brandname.createAt) }}</td>
-        <td class="text-end" data-bs-toggle="modal" :data-bs-target="`#${IdModal.update}`"
-            @click="() => handleClickEdit(brandname)">
-          <button href="#" class="tb-action-item">
+        <td class="text-end">
+          <button href="#" class="tb-action-item" data-bs-toggle="modal" :data-bs-target="`#${IdModal.update}`"
+                  @click="() => handleClickEdit(brandname)">
             <i class="fs-7 fas fa-pen mx-1"></i>Sửa
           </button>
-          <button href="#" class="tb-action-item">
+          <button href="#" class="tb-action-item" data-bs-toggle="modal" :data-bs-target="`#${IdModal.delete}`"
+                  @click="()=> idDelete = brandname.id">
             <i class="fs-7 fas fa-trash mx-1"></i>Xóa
           </button>
         </td>
@@ -92,12 +94,11 @@ watch([() => props.page, () => props.size, () => props.countAllBrandname], () =>
       </tr>
       </tbody>
     </table>
-    <nav v-if="brandnames?.length > 0">
-      <ul class="pagination float-end data-pagination">
+      <ul v-if="countAll > size" class="pagination float-end data-pagination">
       </ul>
-    </nav>
   </div>
   <ModalUpdate :brandname="dataEdit"/>
+  <ModalDelete :id="idDelete"/>
 
 </template>
 

@@ -1,28 +1,29 @@
 import axiosInstance from "@/utils/axios";
 
-export const getAll = (page:number,
-                       size:number,
-                       code = null,
-                       name = null,
-                       status = null,
-                       type = null) => {
-   return axiosInstance.get("api/brandName/getAll",{
-       params: {page,size,code,name,status,type}
-   })
-}
-
-export const countAll = (code = null,
-                       name = null,
-                       status = null,
-                       type = null) => {
-    return axiosInstance.get("api/brandName/countAll",{
-        params: {code,name,status,type}
+export const getAllBrandname = (page: number,
+                                size: number,
+                                status: number = 0,
+                                type: string = "",
+                                key: string = "") => {
+    return axiosInstance.get("api/brandName/getAll", {
+        params: {page, size, status, type, key}
     })
 }
 
-export const create = (brandname:IBrandname) => {
-    return axiosInstance.post("api/brandName/create",brandname)
+export const countAllBrandname = (status: number = 0,
+                                  type: string = "",
+                                  key: string = "") => {
+    return axiosInstance.get("api/brandName/countAll", {
+        params: {status, type,key}
+    })
 }
-export const update = (brandname:IBrandname) => {
-    return axiosInstance.post("api/brandName/update",brandname)
+
+export const createBrandname = (brandname: IBrandname) => {
+    return axiosInstance.post("api/brandName/create", brandname)
+}
+export const updateBrandname = (brandname: IBrandname) => {
+    return axiosInstance.post("api/brandName/update", brandname)
+}
+export const deleteBrandname = (id: number) => {
+    return axiosInstance.post("api/brandName/delete", {id})
 }
