@@ -9,9 +9,9 @@
             Dashboard
           </RouterLink>
           <div class="sb-sidenav-menu-heading">User</div>
-          <RouterLink class="nav-link" to="/brandname-price">
+          <RouterLink class="nav-link" to="/brandname">
             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-            Brandname Price
+            Brandname
           </RouterLink>
           <a class="nav-link" href="#">
             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>

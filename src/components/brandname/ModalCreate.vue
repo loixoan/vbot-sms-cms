@@ -1,44 +1,25 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
 import {TypeBrandname} from "@/enums/TypeBrandname";
 import {Status} from "@/enums/Status";
-import {useToast} from "vue-toast-notification";
-import _ from "lodash"
-import {checkStatus, closeModal} from "@/helpers/functions";
+import {closeModal} from "@/helpers/functions";
 import {create} from "@/services/brandnameService";
-import {IdModal} from "@/enums/IdModal.ts";
+import {IdModal} from "@/enums/IdModal";
+import {useToast} from "vue-toast-notification";
+import {BrandnameValidator} from "@/validator/BrandnameValidator";
+import {inject} from "vue";
 
 const props = defineProps<{
-  fetchData: () => Promise<void>,
   brandname: IBrandname,
-  idModal : string
 }>()
 const $toast = useToast();
-const validated = (brandname: IBrandname): boolean => {
-  if (_.isEmpty(brandname?.name)) {
-    $toast.error("Tên brandname phải được nhập")
-    return false;
-  } else if (_.isEmpty(brandname?.projectCode)) {
-    $toast.error("Mã project phải được nhập")
-    return false;
-  } else if (_.isEmpty(brandname?.type)) {
-    $toast.error("Loại brandname phải được chọn")
-    return false;
-  } else if (checkStatus(brandname.status)) {
-    $toast.error("Trạng thái brandname phải được nhập")
-    return false;
-  } else if (_.isEmpty(brandname?.expirationAt)) {
-    $toast.error("Ngày hết hạn phải được nhập")
-    return false;
-  }
-  return true;
-};
+const fetchData = inject<() => Promise<void>>("fetchData");
+
 const handleCreate = async (brandname: IBrandname) => {
-  if (validated(brandname)) {
-    await create(brandname).then(async(res) => {
+  if (BrandnameValidator(brandname)) {
+    await create(brandname).then(async (res) => {
       if (res.data.status === 1) {
-        await props.fetchData()
+        await fetchData?.()
         closeModal(IdModal.create)
       }
     }).catch(error => {
@@ -47,21 +28,12 @@ const handleCreate = async (brandname: IBrandname) => {
         $toast.error(errors[key]);
       })
     });
-    // console.log("check res: "+await create(brandname))
-    // if (res.data.status === 1) {
-    //   await props.fetchData()
-    //   hideModal("modal-create")
-    // }else{
-    //   if (res.data?.errors != null) {
-    //     console.log(res.data?.errors)
-    //   }
-    //   return false;
-    // }
   }
 }
 </script>
 <template>
-  <div ref="modalForm" class="modal fade" :id="IdModal.create" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+  <div ref="modalForm" class="modal fade" :id="IdModal.create" data-bs-backdrop="static" tabindex="-1"
+       aria-labelledby="exampleModalLabel"
        aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
@@ -96,7 +68,7 @@ const handleCreate = async (brandname: IBrandname) => {
                 <select v-model="brandname.status" class="form-select">
                   <option hidden value="-1">Chọn</option>
                   <option v-for="(value,key) in Status" :selected="key == brandname.status" :value="key">{{
-                      value
+                      value.message
                     }}
                   </option>
                 </select>

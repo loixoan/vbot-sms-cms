@@ -1,4 +1,5 @@
 import {Status} from "@/enums/Status";
+import router from "@/router";
 
 export const formatDate = (dateString: string) => {
     if (!dateString) return '';
@@ -17,6 +18,20 @@ export const formatDate = (dateString: string) => {
     return `${day}-${month}-${year} ${hours != '00' && minutes != '00' && seconds != '00' ? hours + ':' + minutes + ':' + seconds : ''}`;
 }
 
+export const formatDateToInput = (dateString: string) => {
+    if (!dateString) return '';
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) return '';
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${year}-${month}-${day}`;
+}
+
 export const checkStatus = (status:any):boolean => {
     Object.keys(Status).forEach(key => {
         if (status == key) return true;
@@ -26,3 +41,7 @@ export const checkStatus = (status:any):boolean => {
 export const closeModal = (id:string) => {
     $(`#${id}`).modal("hide")
 };
+
+export const paramUrl = () => {
+    return router.currentRoute.value.query;
+}
