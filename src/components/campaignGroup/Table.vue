@@ -1,28 +1,28 @@
 <script setup lang="ts">
 import {nextTick, reactive, ref, watch} from "vue";
-import {formatCurrency, paramUrl} from "@/helpers/functions";
-import ModalUpdate from "@/components/brandnamePrice/ModalUpdate.vue";
+import {formatDate, paramUrl} from "@/helpers/functions";
+import ModalUpdate from "@/components/campaignGroup/ModalUpdate.vue";
 import {IdModal} from "@/enums/IdModal";
+import {Status} from '@/enums/Status';
 import router from "@/router";
-import ModalDelete from "@/components/brandnamePrice/ModalDelete.vue";
+import ModalDelete from "@/components/campaignGroup/ModalDelete.vue";
 
 const props = defineProps<{
-  brandnames : IBrandname[]
-  brandnamePrices: IBrandnamePrice[],
+  campaignGroups: ICampaignGroup[],
   page: number,
   size: number,
   countAll: number
 }>()
-const dataEdit = reactive<IBrandnamePrice>({
-  brandName: "", brandNameId: 0, id: 0, price: 0, telcoCode: ""
+console.log("check props"+props)
+const dataEdit = reactive<ICampaignGroup>({
+  createAt: "", description: "", id: 0, name: ""
 
 });
 const idDelete = ref<number>(0);
-const handleClickEdit = (brandnamePrice: IBrandnamePrice) => {
-  dataEdit.id = brandnamePrice.id;
-  dataEdit.brandNameId = brandnamePrice.brandNameId;
-  dataEdit.price = brandnamePrice.price;
-  dataEdit.telcoCode = brandnamePrice.telcoCode;
+const handleClickEdit = (campaignGroup: ICampaignGroup) => {
+  dataEdit.id = campaignGroup.id;
+  dataEdit.name = campaignGroup.name;
+  dataEdit.description = campaignGroup.description;
 }
 const initializePagination = () => {
   if ($("ul").hasClass("data-pagination")) {
@@ -56,25 +56,25 @@ watch([() => props.page, () => props.size, () => props.countAll], () => {
       <thead>
       <tr>
         <th scope="col">Id</th>
-        <th scope="col">Brandname</th>
-        <th scope="col">Giá</th>
-        <th scope="col">Mã Telco</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Ngày tạo</th>
         <th scope="col" class="text-end">Hành động</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-if="brandnamePrices?.length > 0" v-for="brandname in brandnamePrices">
-        <td>{{ brandname.id }}</td>
-        <td>{{ brandname.brandName }}</td>
-        <td>{{ formatCurrency(brandname.price) }}</td>
-        <td>{{ brandname.telcoCode }}</td>
+      <tr v-if="campaignGroups?.length > 0" v-for="campaignGroup in campaignGroups">
+        <td>{{ campaignGroup.id }}</td>
+        <td>{{ campaignGroup.name }}</td>
+        <td>{{ campaignGroup.description }}</td>
+        <td>{{ formatDate(campaignGroup.createAt) }}</td>
         <td class="text-end">
           <button href="#" class="tb-action-item" data-bs-toggle="modal" :data-bs-target="`#${IdModal.update}`"
-                  @click="() => handleClickEdit(brandname)">
+                  @click="() => handleClickEdit(campaignGroup)">
             <i class="fs-7 fas fa-pen mx-1"></i>Sửa
           </button>
           <button href="#" class="tb-action-item" data-bs-toggle="modal" :data-bs-target="`#${IdModal.delete}`"
-                  @click="()=> idDelete = brandname.id">
+                  @click="()=> idDelete = campaignGroup.id">
             <i class="fs-7 fas fa-trash mx-1"></i>Xóa
           </button>
         </td>
@@ -83,15 +83,12 @@ watch([() => props.page, () => props.size, () => props.countAll], () => {
         <td colspan="9" class="text-center">Hiện không có dữ liệu nào!</td>
       </tr>
       </tbody>
+
     </table>
-      <ul v-if="countAll > size" class="pagination float-end data-pagination">
-      </ul>
+    <ul v-if="countAll > size" class="pagination float-end data-pagination">
+    </ul>
   </div>
-  <ModalUpdate :brandnames="brandnames" :brandnamePrice="dataEdit"/>
+  <ModalUpdate :campaignGroup="dataEdit"/>
   <ModalDelete :id="idDelete"/>
 
 </template>
-
-<style scoped>
-
-</style>

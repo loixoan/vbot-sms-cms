@@ -35,7 +35,7 @@ const handleDelete = async (id:number) => {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Xóa brandname có id là : {{id}}</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Xóa Brandname Price có id là : {{id}}</h5>
           <button type="button" class="btn-close" @click="() => closeModal(IdModal.delete)"></button>
         </div>
         <div class="modal-body">

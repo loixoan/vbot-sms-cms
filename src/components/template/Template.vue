@@ -91,7 +91,7 @@ onMounted(async () => brandnames.value = await getAllBrandname())
         </li>
         <li class="nav-item text-uppercase d-flex col-7">
           <select v-model="params.status" class="form-select mx-2 px-3">
-            <option value="">Chọn trạng thái</option>
+            <option value="" hidden>Chọn trạng thái</option>
             <option v-for="(value,key) in Status" :selected="key == params.status" :value="key">{{
                 value.message
               }}

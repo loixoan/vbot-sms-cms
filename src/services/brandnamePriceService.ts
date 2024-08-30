@@ -15,7 +15,7 @@ export const countAllBrandnamePrice = (key: string = "") => {
 }
 
 export const createBrandnamePrice = (brandnamePrice: IBrandnamePrice) => {
-    return axiosInstance.post("api/brandNamePrice/create", brandnamePrice)
+    return axiosInstance.post("api/brandNamePrice/insert", brandnamePrice)
 }
 export const updateBrandnamePrice = (brandnamePrice: IBrandnamePrice) => {
     return axiosInstance.post("api/brandNamePrice/update", brandnamePrice)

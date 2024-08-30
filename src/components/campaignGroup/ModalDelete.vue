@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import {closeModal} from "@/helpers/functions";
-import {deleteTemplate} from "@/services/templateService";
 import {IdModal} from "@/enums/IdModal";
 import {useToast} from "vue-toast-notification";
 import {inject} from "vue";
+import {deleteSmsCampaignGroup} from "@/services/campaignGroupService";
 
 const props = defineProps<{
   id: number,
 }>()
 const $toast = useToast();
-const fetchData = inject<() => Promise<void>>("fetchDataTemplate");
-const getCountAllData = inject<() => Promise<void>>("getCountAllDataTemplate");
+const fetchData = inject<() => Promise<void>>("fetchDataCampaignGroup");
+const getCountAllData = inject<() => Promise<void>>("getCountAllDataCampaignGroup");
 const handleDelete = async (id:number) => {
-  await deleteTemplate(id).then(async (res) => {
+  await deleteSmsCampaignGroup(id).then(async (res) => {
     if (res.data.status === 1) {
       await fetchData?.()
       await getCountAllData?.()
@@ -35,7 +35,7 @@ const handleDelete = async (id:number) => {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Xóa Template có id là : {{id}}</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Xóa Campaign Group có id là : {{id}}</h5>
           <button type="button" class="btn-close" @click="() => closeModal(IdModal.delete)"></button>
         </div>
         <div class="modal-body">

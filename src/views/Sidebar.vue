@@ -13,6 +13,15 @@ const route = useRoute();
             Trang chủ
           </div>
           <RouterLink class="nav-link link-menu "
+                      :class="{ active: route.path === '/' }"
+                      to="/">
+            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
+            DashBoard
+          </RouterLink>
+          <div class="sb-sidenav-menu-heading">
+            Brandname Price
+          </div>
+          <RouterLink class="nav-link link-menu "
                       :class="{ active: route.path === '/brandname' }"
                       to="/brandname">
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
@@ -24,11 +33,23 @@ const route = useRoute();
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             Price
           </RouterLink>
+          <div class="sb-sidenav-menu-heading">
+            Template
+          </div>
           <RouterLink class="nav-link link-menu"
              :class="{ active: route.path === '/template' }"
              to="/template">
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             Template
+          </RouterLink>
+          <div class="sb-sidenav-menu-heading">
+            Chiến dịch
+          </div>
+          <RouterLink class="nav-link link-menu"
+                      :class="{ active: route.path === '/campaign-group' }"
+                      to="/campaign-group">
+            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
+            Nhóm chiến dịch
           </RouterLink>
           <RouterLink class="nav-link link-menu"
                       :class="{ active: route.path === '/cdr' }"

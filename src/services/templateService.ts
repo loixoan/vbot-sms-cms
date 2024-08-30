@@ -19,7 +19,7 @@ export const countAllTemplate = (status:number = 0,
 }
 
 export const createTemplate = (template: ITemplate) => {
-    return axiosInstance.post("api/template/create", template)
+    return axiosInstance.post("api/template/insert", template)
 }
 export const updateTemplate = (template: ITemplate) => {
     return axiosInstance.post("api/template/update", template)

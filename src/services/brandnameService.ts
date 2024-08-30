@@ -19,7 +19,7 @@ export const countAllBrandname = (status: number = 0,
 }
 
 export const createBrandname = (brandname: IBrandname) => {
-    return axiosInstance.post("api/brandName/create", brandname)
+    return axiosInstance.post("api/brandName/insert", brandname)
 }
 export const updateBrandname = (brandname: IBrandname) => {
     return axiosInstance.post("api/brandName/update", brandname)

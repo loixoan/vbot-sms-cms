@@ -55,4 +55,7 @@ export const getAllBrandname = async (): Promise<IBrandname[] | []> => {
         return [];
     }
 };
+export const formatCurrency = (number:number) => {
+    return number.toLocaleString('vi-VN') + ' ₫';
+};
 

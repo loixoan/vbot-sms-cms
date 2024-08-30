@@ -10,14 +10,14 @@ import {BrandnameValidator} from "@/validator/BrandnameValidator";
 import {inject} from "vue";
 
 const props = defineProps<{
-  template: ITemplate,
+  brandname: IBrandname,
 }>()
 const $toast = useToast();
-const fetchData = inject<() => Promise<void>>("fetchDataTemplate");
-const getCountAllData = inject<() => Promise<void>>("getCountAllDataTemplate");
-const handleCreate = async (template: ITemplate) => {
-  if (BrandnameValidator(template)) {
-    await createBrandname(template).then(async (res) => {
+const fetchData = inject<() => Promise<void>>("fetchDatabrandname");
+const getCountAllData = inject<() => Promise<void>>("getCountAllDatabrandname");
+const handleCreate = async (brandname: IBrandname) => {
+  if (BrandnameValidator(brandname)) {
+    await createBrandname(brandname).then(async (res) => {
       if (res.data.status === 1) {
         await fetchData?.()
         await getCountAllData?.()
