@@ -1,30 +1,31 @@
 <script setup lang="ts">
 import {nextTick, reactive, ref, watch} from "vue";
-import {formatDate, formatDateToInput, paramUrl} from "@/helpers/functions";
-import ModalUpdate from "@/components/brandname/ModalUpdate.vue";
+import {formatDate, paramUrl} from "@/helpers/functions";
+import ModalUpdate from "@/components/template/ModalUpdate.vue";
 import {IdModal} from "@/enums/IdModal";
 import {Status} from '@/enums/Status';
 import router from "@/router";
-import ModalDelete from "@/components/brandname/ModalDelete.vue";
+import ModalDelete from "@/components/template/ModalDelete.vue";
 
 const props = defineProps<{
   brandnames: IBrandname[],
+  templates: ITemplate[],
   page: number,
   size: number,
   countAll: number
 }>()
-const dataEdit = reactive<IBrandname>({
-  code: "", createAt: "", expirationAt: "", id: 0, name: "", projectCode: "", status: 0, type: ""
+const dataEdit = reactive<ITemplate>({
+  brandname: "", brandnameId: 0, content: "", createAt: "", id: 0, name: "", status: 0
+
 });
 const idDelete = ref<number>(0);
-const handleClickEdit = (brandname: IBrandname) => {
-  dataEdit.code = brandname.code;
-  dataEdit.expirationAt = formatDateToInput(brandname.expirationAt);
-  dataEdit.id = brandname.id;
-  dataEdit.name = brandname.name;
-  dataEdit.projectCode = brandname.projectCode;
-  dataEdit.status = brandname.status;
-  dataEdit.type = brandname.type;
+const handleClickEdit = (template: ITemplate) => {
+  dataEdit.brandname = template.brandname;
+  dataEdit.id = template.id;
+  dataEdit.name = template.name;
+  dataEdit.content = template.content;
+  dataEdit.status = template.status;
+  dataEdit.brandnameId = template.brandnameId;
 }
 const initializePagination = () => {
   if ($("ul").hasClass("data-pagination")) {
@@ -58,33 +59,29 @@ watch([() => props.page, () => props.size, () => props.countAll], () => {
       <thead>
       <tr>
         <th scope="col">Id</th>
-        <th scope="col">Mã brandname</th>
-        <th scope="col">Tên brandname</th>
-        <th scope="col">Mã project</th>
-        <th scope="col">Loại</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Brandname</th>
         <th scope="col">Trạng thái</th>
-        <th scope="col">Ngày hết hạn</th>
+        <th scope="col">Nội dung</th>
         <th scope="col">Ngày tạo</th>
         <th scope="col" class="text-end">Hành động</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-if="brandnames?.length > 0" v-for="brandname in brandnames">
-        <td>{{ brandname.id }}</td>
-        <td>{{ brandname.code }}</td>
-        <td>{{ brandname.name }}</td>
-        <td>{{ brandname.projectCode }}</td>
-        <td>{{ brandname.type }}</td>
-        <td><span :class="Status[brandname.status].color">{{ Status[brandname.status].message }}</span></td>
-        <td>{{ formatDate(brandname.expirationAt) }}</td>
-        <td>{{ formatDate(brandname.createAt) }}</td>
+      <tr v-if="templates?.length > 0" v-for="template in templates">
+        <td>{{ template.id }}</td>
+        <td>{{ template.name }}</td>
+        <td>{{ template.brandname }}</td>
+        <td><span :class="Status[template.status].color">{{ Status[template.status].message }}</span></td>
+        <td>{{ template.content }}</td>
+        <td>{{ formatDate(template.createAt) }}</td>
         <td class="text-end">
           <button href="#" class="tb-action-item" data-bs-toggle="modal" :data-bs-target="`#${IdModal.update}`"
-                  @click="() => handleClickEdit(brandname)">
+                  @click="() => handleClickEdit(template)">
             <i class="fs-7 fas fa-pen mx-1"></i>Sửa
           </button>
           <button href="#" class="tb-action-item" data-bs-toggle="modal" :data-bs-target="`#${IdModal.delete}`"
-                  @click="()=> idDelete = brandname.id">
+                  @click="()=> idDelete = template.id">
             <i class="fs-7 fas fa-trash mx-1"></i>Xóa
           </button>
         </td>
@@ -98,7 +95,7 @@ watch([() => props.page, () => props.size, () => props.countAll], () => {
     <ul v-if="countAll > size" class="pagination float-end data-pagination">
     </ul>
   </div>
-  <ModalUpdate :brandname="dataEdit"/>
+  <ModalUpdate :template="dataEdit" :brandnames="brandnames"/>
   <ModalDelete :id="idDelete"/>
 
 </template>

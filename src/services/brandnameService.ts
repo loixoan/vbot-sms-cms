@@ -27,3 +27,6 @@ export const updateBrandname = (brandname: IBrandname) => {
 export const deleteBrandname = (id: number) => {
     return axiosInstance.post("api/brandName/delete", {id})
 }
+export const getListBrandname = () => {
+    return axiosInstance.get("api/brandName/getAllBrandName")
+}

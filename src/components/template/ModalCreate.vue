@@ -1,23 +1,23 @@
 <script setup lang="ts">
 
-import {TypeBrandname} from "@/enums/TypeBrandname";
 import {Status} from "@/enums/Status";
 import {closeModal} from "@/helpers/functions";
-import {createBrandname} from "@/services/brandnameService";
+import {createTemplate} from "@/services/templateService";
 import {IdModal} from "@/enums/IdModal";
 import {useToast} from "vue-toast-notification";
-import {BrandnameValidator} from "@/validator/BrandnameValidator";
 import {inject} from "vue";
+import {TemplateValidator} from "@/validator/TemplateValidator";
 
 const props = defineProps<{
+  brandnames: IBrandname[]
   template: ITemplate,
 }>()
 const $toast = useToast();
 const fetchData = inject<() => Promise<void>>("fetchDataTemplate");
 const getCountAllData = inject<() => Promise<void>>("getCountAllDataTemplate");
 const handleCreate = async (template: ITemplate) => {
-  if (BrandnameValidator(template)) {
-    await createBrandname(template).then(async (res) => {
+  if (TemplateValidator(template)) {
+    await createTemplate(template).then(async (res) => {
       if (res.data.status === 1) {
         await fetchData?.()
         await getCountAllData?.()
@@ -40,7 +40,7 @@ const handleCreate = async (template: ITemplate) => {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Brandname</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Template</h5>
           <button type="button" class="btn-close" @click="() => closeModal(IdModal.create)"></button>
         </div>
         <div class="modal-body">
@@ -48,18 +48,18 @@ const handleCreate = async (template: ITemplate) => {
             <div class="col-12">
               <div class="mb-3">
                 <label for="" class="form-label">Tên<span class="text-danger">*</span></label>
-                <input type="text" v-model="brandname.name" class="form-control" placeholder="Tên brandname">
+                <input type="text" v-model="template.name" class="form-control" placeholder="Tên template">
               </div>
               <div class="mb-3">
-                <label for="" class="form-label">Mã project<span class="text-danger">*</span></label>
-                <input type="text" v-model="brandname.projectCode" class="form-control" placeholder="Mã project">
+                <label for="" class="form-label">Nội dung<span class="text-danger">*</span></label>
+                <input type="text" v-model="template.content" class="form-control" placeholder="Nội dung">
               </div>
               <div class="mb-3">
-                <label for="" class="form-label">Kiểu brandname<span class="text-danger">*</span></label>
-                <select v-model="brandname.type" class="form-select">
-                  <option hidden value="">Chọn</option>
-                  <option v-for="type in TypeBrandname" :selected="type == brandname.type" :value="type">{{
-                      type
+                <label for="" class="form-label">Chọn brandname<span class="text-danger">*</span></label>
+                <select v-model="template.brandnameId" class="form-select">
+                  <option hidden value="0">Chọn</option>
+                  <option v-for="brandname in brandnames" :selected="brandname.id == template.brandnameId" :value="brandname.id">{{
+                      brandname.name
                     }}
                   </option>
                 </select>
@@ -67,25 +67,20 @@ const handleCreate = async (template: ITemplate) => {
 
               <div class="mb-3">
                 <label for="" class="form-label">Trạng thái<span class="text-danger">*</span></label>
-                <select v-model="brandname.status" class="form-select">
+                <select v-model="template.status" class="form-select">
                   <option hidden value="-1">Chọn</option>
-                  <option v-for="(value,key) in Status" :selected="key == brandname.status" :value="key">{{
+                  <option v-for="(value,key) in Status" :selected="key == template.status" :value="key">{{
                       value.message
                     }}
                   </option>
                 </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="" class="form-label">Ngày hết hạn<span class="text-danger">*</span></label>
-                <input type="date" v-model="brandname.expirationAt" class="form-control" placeholder="Ngày hết hạn">
               </div>
             </div>
           </div>
           <div class="modal-footer border-0 p-0 ">
             <button type="button" class="btn btn-secondary" @click="() => closeModal(IdModal.create)">Hủy</button>
             <button class="btn btn-primary"
-                    @click="()=> handleCreate(brandname)">Lưu
+                    @click="()=> handleCreate(template)">Lưu
             </button>
           </div>
         </div>

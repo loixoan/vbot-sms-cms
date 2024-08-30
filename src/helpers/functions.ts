@@ -1,5 +1,6 @@
 import {Status} from "@/enums/Status";
 import router from "@/router";
+import {getListBrandname} from "@/services/brandnameService";
 
 export const formatDate = (dateString: string) => {
     if (!dateString) return '';
@@ -32,16 +33,26 @@ export const formatDateToInput = (dateString: string) => {
     return `${year}-${month}-${day}`;
 }
 
-export const checkStatus = (status:any):boolean => {
+export const checkStatus = (status: any): boolean => {
     Object.keys(Status).forEach(key => {
         if (status == key) return true;
     })
     return false;
 }
-export const closeModal = (id:string) => {
+export const closeModal = (id: string) => {
     $(`#${id}`).modal("hide")
 };
 
 export const paramUrl = () => {
     return router.currentRoute.value.query;
 }
+export const getAllBrandname = async (): Promise<IBrandname[] | []> => {
+    try {
+        const res = await getListBrandname();
+        return res.data.data as IBrandname[];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+

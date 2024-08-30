@@ -44,7 +44,6 @@ const fetchData = async () => {
   await getAllBrandname(params.page, params.size, params.status, params.type, params.key)
       .then(res => {
         brandnames.value = res.data.data;
-        $toast.success(res.data.msg,toastConfig)
       })
       .catch(error => $toast.error(error.message));
 }
@@ -101,7 +100,7 @@ watch([
           <select v-model="params.type" class="form-select mx-2 px-3 form-select-sm" id="type"
                   aria-label=".form-select-sm example" name="type">
             <option value="" hidden>Loại brandname</option>
-            <option v-for="type in TypeBrandname" :selected="() => type == params.type" :value="type">{{
+            <option v-for="type in TypeBrandname" :selected="type == params.type" :value="type">{{
                 type
               }}
             </option>
@@ -109,7 +108,7 @@ watch([
           <select v-model="params.status" class="form-select mx-2 px-3" name="status" id="status"
                   aria-label="Default select example">
             <option value="" hidden>Trạng thái</option>
-            <option v-for="(value,key) in Status" :selected="() => key == params.status" :value="key">{{
+            <option v-for="(value,key) in Status" :selected="key == params.status" :value="key">{{
                 value.message
               }}
             </option>

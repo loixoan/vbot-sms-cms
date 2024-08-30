@@ -30,16 +30,12 @@ const route = useRoute();
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             Template
           </RouterLink>
-          <a class="nav-link link-menu"
-             th:href="#{root}+'/brandname-price'">
-            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
-            Brandname Price
-          </a>
-          <a class="nav-link link-menu"
-             th:href="#{root}+'/cdr'">
+          <RouterLink class="nav-link link-menu"
+                      :class="{ active: route.path === '/cdr' }"
+                      to="/cdr">
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             CDR
-          </a>
+          </RouterLink>
         </div>
       </div>
     </nav>
