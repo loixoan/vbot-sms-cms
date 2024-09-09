@@ -31,7 +31,7 @@ const route = useRoute();
                       :class="{ active: route.path === '/brandname-price' }"
                       to="/brandname-price">
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
-            Price
+            Giá
           </RouterLink>
           <div class="sb-sidenav-menu-heading">
             Template
@@ -50,6 +50,27 @@ const route = useRoute();
                       to="/campaign-group">
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             Nhóm chiến dịch
+          </RouterLink>
+          <RouterLink class="nav-link link-menu"
+                      :class="{ active: route.path === '/campaign-phone' }"
+                      to="/campaign-phone">
+            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
+            Số điện thoại
+          </RouterLink>
+          <RouterLink class="nav-link link-menu"
+                      :class="{ active: route.path === '/campaign' }"
+                      to="/campaign">
+            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
+            Chiến dịch
+          </RouterLink>
+          <div class="sb-sidenav-menu-heading">
+            Custom Field
+          </div>
+          <RouterLink class="nav-link link-menu"
+                      :class="{ active: route.path === '/field' }"
+                      to="/field">
+            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
+            Field
           </RouterLink>
           <RouterLink class="nav-link link-menu"
                       :class="{ active: route.path === '/cdr' }"

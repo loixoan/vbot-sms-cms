@@ -27,3 +27,6 @@ export const updateTemplate = (template: ITemplate) => {
 export const deleteTemplate = (id: number) => {
     return axiosInstance.post("api/template/delete", {id})
 }
+export const getListTemplate = () => {
+    return axiosInstance.get("api/template/getAllNoPage")
+}

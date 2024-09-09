@@ -22,3 +22,6 @@ export const updateSmsCampaignGroup = (smsCampaignGroup: ICampaignGroup) => {
 export const deleteSmsCampaignGroup = (id: number) => {
     return axiosInstance.post("api/smsCampaignGroup/delete", {id})
 }
+export const getListCampaignGroup = () => {
+    return axiosInstance.get("api/smsCampaignGroup/getAllNoPage")
+}

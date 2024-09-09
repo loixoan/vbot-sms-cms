@@ -16,7 +16,7 @@ const $toast = useToast();
 const params = reactive({
   page: 0,
   size: 0,
-  status: 0,
+  status: -1,
   type: "",
   key: ""
 })
@@ -75,10 +75,9 @@ watch([
 ], async () => {
   params.page = Number(paramUrl().page) || 0;
   params.size = Number(paramUrl().size) || 20;
-  params.status = Number(paramUrl().status) || 0;
+  params.status = paramUrl().status ? Number(paramUrl().status) : -1;
   params.type = paramUrl().type ? String(paramUrl().type) : "";
   params.key = paramUrl().key ? String(paramUrl().key) : "";
-
   await fetchData()
   await getCountAllData()
 }, {immediate: true})
@@ -99,7 +98,7 @@ watch([
         <li class="nav-item text-uppercase d-flex col-7">
           <select v-model="params.type" class="form-select mx-2 px-3 form-select-sm" id="type"
                   aria-label=".form-select-sm example" name="type">
-            <option value="" hidden>Loại brandname</option>
+            <option value="">Loại brandname</option>
             <option v-for="type in TypeBrandname" :selected="type == params.type" :value="type">{{
                 type
               }}
@@ -107,7 +106,7 @@ watch([
           </select>
           <select v-model="params.status" class="form-select mx-2 px-3" name="status" id="status"
                   aria-label="Default select example">
-            <option value="" hidden>Trạng thái</option>
+            <option value="-1">Trạng thái</option>
             <option v-for="(value,key) in Status" :selected="key == params.status" :value="key">{{
                 value.message
               }}

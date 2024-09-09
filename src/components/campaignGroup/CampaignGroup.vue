@@ -73,7 +73,7 @@ watch([
     <div class="card border-0 mb-2 px-3">
       <ul class="nav mt-3 d-flex">
         <li class="nav-item d-flex col-9">
-          <h4 class="page-title">Campaign Group</h4>
+          <h4 class="page-title">Nhóm chiến dịch</h4>
           <button id="create-btn" type="button" @click="() => handleClickCreate()" data-bs-toggle="modal"
                   :data-bs-target="'#'+IdModal.create" class="btn-nav-link"><i class="fa-solid fa-plus mx-1"></i>Thêm
             mới

@@ -38,7 +38,7 @@ const handleCreate = async (brandnamePrice: IBrandnamePrice) => {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới giá</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Giá Brandname</h5>
           <button type="button" class="btn-close" @click="() => closeModal(IdModal.create)"></button>
         </div>
         <div class="modal-body">

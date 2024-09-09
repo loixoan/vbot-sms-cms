@@ -37,7 +37,7 @@ const handleUpdate = async (campaignGroup: ICampaignGroup) => {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Cập nhật campaignGroup</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Cập nhật nhóm chiến dịch</h5>
           <button type="button" class="btn-close" @click="() => closeModal(IdModal.update)"></button>
         </div>
         <div class="modal-body">

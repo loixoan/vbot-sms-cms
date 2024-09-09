@@ -14,7 +14,7 @@ const $toast = useToast();
 const params = reactive({
   page: 0,
   size: 0,
-  status: 0,
+  status: -1,
   brandnameId: 0,
   key: ""
 })
@@ -67,7 +67,7 @@ watch([
 ], async () => {
   params.page = Number(paramUrl().page) || 0;
   params.size = Number(paramUrl().size) || 20;
-  params.status = Number(paramUrl().status) || 0;
+  params.status = paramUrl().status ? Number(paramUrl().status) : -1;
   params.brandnameId =  Number(paramUrl().brandnameId) || 0;
   params.key = paramUrl().key ? String(paramUrl().key) : "";
   await fetchDataTemplate()
@@ -91,7 +91,7 @@ onMounted(async () => brandnames.value = await getAllBrandname())
         </li>
         <li class="nav-item text-uppercase d-flex col-7">
           <select v-model="params.status" class="form-select mx-2 px-3">
-            <option value="" hidden>Chọn trạng thái</option>
+            <option value="-1">Chọn trạng thái</option>
             <option v-for="(value,key) in Status" :selected="key == params.status" :value="key">{{
                 value.message
               }}

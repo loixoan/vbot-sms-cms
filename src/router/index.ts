@@ -4,6 +4,9 @@ import BrandnamePrice from "@/components/brandnamePrice/BrandnamePrice.vue";
 import Brandname from "@/components/brandname/Brandname.vue";
 import Template from "@/components/template/Template.vue";
 import CampaignGroup from "@/components/campaignGroup/CampaignGroup.vue";
+import CampaignPhone from "@/components/campaignPhone/CampaignPhone.vue";
+import Campaign from "@/components/campaign/Campaign.vue";
+import CustomField from "@/components/customField/CustomField.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +35,21 @@ const router = createRouter({
             path: '/campaign-group',
             name: 'campaignGroup',
             component: CampaignGroup
+        },
+        {
+            path: '/campaign-phone',
+            name: 'campaignPhone',
+            component: CampaignPhone
+        },
+        {
+            path: '/campaign',
+            name: 'campaign',
+            component: Campaign
+        },
+        {
+            path: '/field',
+            name: 'field',
+            component: CustomField
         },
         {
             path: '/about',

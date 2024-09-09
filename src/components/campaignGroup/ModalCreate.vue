@@ -39,7 +39,7 @@ const handleCreate = async (campaignGroup: ICampaignGroup) => {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" id="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Campaign Group</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới nhóm chiến dịch</h5>
           <button type="button" class="btn-close" @click="() => closeModal(IdModal.create)"></button>
         </div>
         <div class="modal-body">
