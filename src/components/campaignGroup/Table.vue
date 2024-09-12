@@ -13,7 +13,6 @@ const props = defineProps<{
   size: number,
   countAll: number
 }>()
-console.log("check props"+props)
 const dataEdit = reactive<ICampaignGroup>({
   createAt: "", description: "", id: 0, name: ""
 

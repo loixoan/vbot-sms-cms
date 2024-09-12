@@ -100,3 +100,14 @@ export const checkPhoneVN = (phoneNumber:string):boolean => {
     return regex.test(phoneNumber);
 }
 
+export const getCurrentDateInstant = ():string => {
+    return formatInstantToDate(new Date().toDateString());
+}
+export const formatInstantToDate = (date:string):string => {
+    return new Intl.DateTimeFormat('en-CA').format(new Date(date));
+}
+
+export const getArrayParamsUrl =  (string: any):string[] => {
+    return string? Array.isArray(string)? string as string[] : [String(string)] : [];
+}
+

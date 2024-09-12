@@ -4,7 +4,11 @@ import Table from "@/components/campaign/Table.vue";
 import {onMounted, provide, reactive, ref, watch, watchEffect} from "vue";
 import {countAllCampaign, getAllCampaign} from "@/services/campaignService";
 import {IdModal} from "@/enums/IdModal";
-import {checkTypeField, getAllCampaignGroup, getAllTemplate, paramUrl} from "@/helpers/functions";
+import {
+  getAllCampaignGroup,
+  getAllTemplate,
+  paramUrl
+} from "@/helpers/functions";
 import {useToast} from "vue-toast-notification";
 import {Status} from "@/enums/Status";
 import router from "@/router";

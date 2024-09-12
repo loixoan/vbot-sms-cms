@@ -13,8 +13,8 @@ const props = defineProps<{
   brandname: IBrandname,
 }>()
 const $toast = useToast();
-const fetchData = inject<() => Promise<void>>("fetchDatabrandname");
-const getCountAllData = inject<() => Promise<void>>("getCountAllDatabrandname");
+const fetchData = inject<() => Promise<void>>("fetchData");
+const getCountAllData = inject<() => Promise<void>>("getCountAllData");
 const handleCreate = async (brandname: IBrandname) => {
   if (BrandnameValidator(brandname)) {
     await createBrandname(brandname).then(async (res) => {

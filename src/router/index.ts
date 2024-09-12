@@ -7,6 +7,8 @@ import CampaignGroup from "@/components/campaignGroup/CampaignGroup.vue";
 import CampaignPhone from "@/components/campaignPhone/CampaignPhone.vue";
 import Campaign from "@/components/campaign/Campaign.vue";
 import CustomField from "@/components/customField/CustomField.vue";
+import Queue from "@/components/queue/Queue.vue";
+import History from "@/components/history/History.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,10 +54,20 @@ const router = createRouter({
             component: CustomField
         },
         {
-            path: '/about',
-            name: 'about',
-            component: () => import('../views/AboutView.vue')
+            path: '/queue',
+            name: 'queue',
+            component: Queue
+        },
+        {
+            path: '/history',
+            name: 'history',
+            component: History
         }
+        // {
+        //     path: '/test',
+        //     name: 'test',
+        //     component: Test
+        // }
     ]
 })
 

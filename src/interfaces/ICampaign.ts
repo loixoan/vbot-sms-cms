@@ -11,4 +11,5 @@ interface ICampaign{
     createBy:string,
     updateBy:string,
     projectCode:string
+    code: string
 }

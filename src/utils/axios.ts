@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8888/", // URL gốc cho các yêu cầu API
+    baseURL: import.meta.env.VITE_API_URL, // URL gốc cho các yêu cầu API
     timeout: 10000, // thời gian chờ yêu cầu
     headers: {
         'Content-Type': 'application/json'

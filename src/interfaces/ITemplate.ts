@@ -6,4 +6,5 @@ interface ITemplate {
     content: string
     brandnameId: number
     createAt: string
+    code: string
 }

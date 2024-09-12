@@ -1,7 +1,6 @@
 
 <script setup>
 import {useRoute} from "vue-router";
-
 const route = useRoute();
 </script>
 <template>
@@ -72,9 +71,21 @@ const route = useRoute();
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             Field
           </RouterLink>
+          <div class="sb-sidenav-menu-heading">
+            Queue
+          </div>
           <RouterLink class="nav-link link-menu"
-                      :class="{ active: route.path === '/cdr' }"
-                      to="/cdr">
+                      :class="{ active: route.path === '/queue' }"
+                      to="/queue">
+            <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
+            Queue
+          </RouterLink>
+          <div class="sb-sidenav-menu-heading">
+            History
+          </div>
+          <RouterLink class="nav-link link-menu"
+                      :class="{ active: route.path === '/history' }"
+                      to="/history">
             <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
             CDR
           </RouterLink>
@@ -83,5 +94,3 @@ const route = useRoute();
     </nav>
   </div>
 </template>
-<script setup lang="ts">
-</script>
