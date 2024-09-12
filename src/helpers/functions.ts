@@ -6,6 +6,7 @@ import {getListCampaignGroup} from "@/services/campaignGroupService";
 import {getListTemplate} from "@/services/templateService";
 import {TypeCustomField} from "@/enums/TypeCustomField";
 import {TypeBrandname} from "@/enums/TypeBrandname";
+// import $ from "jquery"
 
 export const formatDate = (dateString: string) => {
     if (!dateString) return '';

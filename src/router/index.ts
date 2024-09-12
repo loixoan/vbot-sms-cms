@@ -63,11 +63,6 @@ const router = createRouter({
             name: 'history',
             component: History
         }
-        // {
-        //     path: '/test',
-        //     name: 'test',
-        //     component: Test
-        // }
     ]
 })
 
